@@ -1,0 +1,18 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Condividi questo carrello</h4></h4>
+        </div>
+        <div class="modal-body">
+            Puoi inviare questo link ad un tuo amico affinché lui faccia il checkout al posto tuo.
+            <br><br>
+            <div class="input-group">
+                <input type="text" name="copy-hash" value="{{ basket.copy_link }}" class="form-control" readonly="readonly">
+                <div class="input-group-btn">
+                    <button class="btn btn-primary btn-copy">{{ __("Copia") }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

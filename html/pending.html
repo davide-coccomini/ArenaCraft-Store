@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div class="row body">
+		<div class="span7 content">
+			<div class="box-container panel panel-default">
+				<div class="header panel-heading">{{ __("In attesa della conferma di pagamento") }}</div>
+				<div class="content panel-body">
+					<p>
+						{{ __("Siamo in attesa che il tuo pagamento venga accettato. Riceverai un'email non appena ciò sarà avvenuto. Qualora non dovessi ricevere ulteriori informazioni da noi, contattaci.") }}
+					</p>
+					<p>
+					  	{{ __("Se dovessi avere problemi, contatta lo staff del server.") }}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="span4 sidebar">
+			{{ modules|raw }}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "email/layout.html" %}
+
+{% block content %}
+<table>
+    <tr>
+        <td class="content-block">
+            Hello,
+        </td>
+    </tr>
+
+    <tr>
+        <td class="content-block">
+            We just wanted to let you know that your recent merchandise order has now been processed. We will shortly be routing it to our nearest fulfilment center.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            <strong>Order Ref:</strong> {{ order.supplier_order_ref }}<br />
+            <strong>Description: </strong> {{ order.description }}<br />
+            <br />
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            All our products are printed to order. Printing usually takes place within 3 working days of order.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            <h3>Care Instructions</h3>
+            As with any bespoke garment, care should be taken when washing your item:
+            <ul>
+                <li>Wash inside-out at 30&deg;c</li>
+                <li>Do not bleach</li>
+                <li>Do not tumble dry</li>
+                <li>Iron on reverse side of garment on a cool setting only</li>
+                <li>Do not iron over the printed area</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            Thank you for your business. Should you need any help, please do let us know.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            &mdash; {{ accountData.name }}
+        </td>
+    </tr>
+</table>
+{% endblock %}

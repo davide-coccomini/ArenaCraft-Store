@@ -1,0 +1,45 @@
+<a href="https://supporto.voxelaps.it/kb/faq.php?id=3" target="blank_">
+ <div class="alert-parents">
+    <strong>Sei un genitore?</strong><br>
+    Se vuoi conoscere di più sul mondo di minecraft, clicca qui.
+ </div>
+</a>
+
+
+
+<div class="panel panel-default module">
+    <div class="panel-heading">Informazioni generali</div>
+    <div class="panel-body">
+       <center>
+        <b>Benvenuto sullo shop ufficiale di ArenaCraft!</b><br>
+                 <b>IP:</b> mc.ArenaCraft.it
+       </center><br>
+        <div class="row">
+         <a href="https://www.arenacraft.it/" target="blank_"><button class="btn btn-orange col-md-4 col-md-offset-1 col-xs-4 col-xs-offset-1">Vai al sito</button></a>
+        <a href="https://www.arenacraft.it/forum/" target="blank_"><button class="btn btn-orange col-md-4 col-md-offset-2 col-xs-4 col-xs-offset-2">Vai al forum</button></a>
+        
+        </div>
+   
+    </div>
+</div>
+
+
+<div class="panel panel-default module">
+    <div class="panel-heading">{{ module.header }}</div>
+    <div class="panel-body">
+        <div class="donation-goal">
+            <p>
+                {% if module.displayAmount %}
+                    {{ module.total }} / {{ module.target }} {{ store.currency }} ({{ module.percentage }}%)
+    		    {% endif %}
+
+    		    {% if module.displayAmount == false %}
+    			    {{ module.percentage }}% {{ __("completato") }}
+    		    {% endif %} 
+            </p>
+            <div class="progress {% if module.bar.style == "striped" %} progress-striped {% endif %} {% if module.bar.animated %} active {% endif %}">
+                <div class="progress-bar bg-warning" role="progressbar" style="width:{{ module.percentage }}%;"></div>
+            </div>
+        </div>
+    </div>
+</div>

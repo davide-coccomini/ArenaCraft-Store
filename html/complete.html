@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div class="body">
+		<div class="content">
+			<div class="panel panel-default">
+				<div class="panel-heading">{{ __("Pagamento completato") }}</div>
+				<div class="panel-body">
+					<p>
+						 {{ __("Il tuo pagamento è stato completato con successo.") }}
+					</p>
+					<p>
+					  	{{ __("Per ricevete ciò che hai acquistato, effettua il login al server. Una volta loggato dovrai attendere al massimo 15 minuti prima di ricevere automaticamente i tuoi acquisti.") }}
+					</p>
+					<p>
+					  	{{ __("Qualora dovessi avere qualche problema, ti preghiamo di contattare un membro dello staff sul server.") }}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="sidebar">
+			{{ modules|raw }}
+		</div>
+	</div>
+{% endblock %}

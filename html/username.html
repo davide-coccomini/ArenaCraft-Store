@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="body">
+        <div class="content">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ __("Inserisci il tuo username per proseguire") }}</div>
+                <div class="panel-body">
+                  <form method="post">
+                    <div class="username">
+                      <div class="input-group">
+                        <input type="text" name="ign" class="form-control input-lg" />
+                        <div class="input-group-btn"><button class="btn btn-success btn-lg" type="submit">{{ __("Continua") }}</button></div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            {{ modules|raw }}
+        </div>
+    </div>
+{% endblock %}

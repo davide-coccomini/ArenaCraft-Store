@@ -1,0 +1,71 @@
+{% extends "email/layout.html" %}
+
+{% block content %}
+	<p>
+		Ciao <b>{{ username }}</b>,
+	</p>
+	<p>
+		Grazie per l'acquisto! Ti confermiamo che l'ordine è stato ricevuto e riceverai presto i tuoi benefici.
+	</p>
+	<p>
+		Qualora non ricevessi ciò che hai acquistato ti invitiamo a metterti in contatto con lo staff di Arena Craft.
+	</p>
+
+	{% if packages|length > 0 %}
+	    <p>
+	    	<strong>Acquisti: </strong>
+	    </p>
+	    <p>
+	    	<ul>
+			{% for package in packages %}
+	    			<li>{{ package.quantity }}<b>x</b> {{ package.name }}</li>
+			{% endfor %}
+	    	</ul>
+	    </p>
+	{% endif %}
+
+	{% if coupons|length > 0 %}
+	    <p>
+	    	<strong>Coupons applicati: </strong>
+	    </p>
+	    <p>
+	    	<ul>
+	    		{% for coupon in coupons %}
+	    			<li>{{ coupon.code }}</li>
+	    		{% endfor %}
+	    	</ul>
+	    </p>
+	{% endif %}
+
+	{% if paymentData.name and paymentData.country and paymentData.address %}
+		<p>
+			<strong>I tuoi dettagli:</strong>
+	    </p>
+	    <p>
+	    	<ul style="list-style-type:none;">
+	    		<li><strong>Nome:</strong> {{ paymentData.name }}</li>
+	    		<li><strong>Indirizzo:</strong> {{ paymentData.address }}</li>
+	    		<li><strong>Paese:</strong> {{ paymentData.country }}</li>
+	    	</ul>
+	    </p>
+	{% endif %}
+
+	<p>
+		<strong>Informazioni:</strong>
+	</p>
+	<p>
+		<ul style="list-style-type:none;">
+			<li><strong>Sub Totale:</strong> {{ paymentData.price|number_format(2, ".", ",") }} {{ paymentData.currency }}</li>
+			<li><strong>Tasse:</strong> {{ paymentData.tax|number_format(2, ".", ",") }} {{ paymentData.currency }}</li>
+			<li><strong>Totale:</strong> {{ paymentData.price|number_format(2, ".", ",") }} {{ paymentData.currency }}</li>
+			<li><strong>Metodo di pagamento:</strong> {{ paymentData.gateway_name }}</li>
+			<li><strong>ID Transazione:</strong> {{ paymentData.txn_id }}</li>
+			<li><strong>Username:</strong> {{ username }}</li>
+			<li><strong>Data:</strong> {{ paymentData.time|date("jS F Y G:i") }}</li>
+		</ul>
+	</p>
+
+	{% if accountData.email_note %}
+		<p>{{ accountData.email_note|raw }}</p>
+	{% endif %}
+{% endblock %}

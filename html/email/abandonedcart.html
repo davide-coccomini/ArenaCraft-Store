@@ -1,0 +1,22 @@
+{% extends "email/layout.html" %}
+
+{% block content %}
+	<p>
+    	Salve.
+	</p>
+	<p>
+		Ci siamo accorti che hai recentemente visitato il nostro store inserendo degli oggetti nel carrello ma senza completare il pagamento.
+	</p>
+	<p>
+		Qualora dovessi avere dei dubbi sull'acquisto non esitare a contattare un membro dello staff.
+	</p>
+	<p>
+		Speriamo che tu possa tornare a completare l'acquisto e se volessi vedere cosa hai nel carrello, clicca <a href='{{ cartlink }}'>qui</a>
+	</p>
+	{% if couponcode %}
+		<p>
+		  Oggi è anche il tuo giorno fortunato perché vogliamo incentivarti con un coupon del {{ couponvalue }}% off sugli acquisti. Per utilizzare il tuo codice sconto inserisci <strong>{{ couponcode }}</strong> al checkout. Questo coupon è valido solo per 48 ore quindi speriamo di rivederti presto!
+		</p>
+	{% endif %}
+{% endblock %}
+

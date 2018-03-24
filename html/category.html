@@ -1,0 +1,471 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div class="body">
+		<div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0">
+			<div>
+				{% if category.description == "" %}
+					<div class="panel-heading">{{ category.name }}</div>
+				{% endif %}
+					{% if category.packages|length > 0 %}
+					    <div class="category">
+    						{% if category.displayType == "list" %}
+                                <div class="packages-row">
+                                                       {% if package.countdownEnds %}<br /><span class="text-danger"><i class="fa fa-clock-o"></i> <span class="countdown-to" data-countdown="{{ package.countdownEnds }}">{{ __("Finirà presto!") }}</span></span>{% endif %}
+                                               </div> 
+            			                <div id="PricingTab">
+                                         <div class="container">
+                                          <div class="itembox itembox-auto">
+                                          <div class="row table-responsive">
+                                           <table class="table table-hover">
+                                             <thead>
+                                              <tr>
+                                               <th class="tabco1"><p>Features</p></th>
+                                               <th class="tabco2" id="tabwood">	<img src="https://www.arenacraft.it/img/vip-Wood-badge.png"><br><p>Wood<br>BASE</p></th>
+            							{% for package in category.packages %}
+                                            <th class="tabco2">
+                                                {% if package.discount.applied %}
+        							            	<div class="box-discounted-rank">
+                                                      <p><i class="fa fa-tag"></i>IN SCONTO</p>
+                                            		</div><br>
+                                            	{% endif %}
+            								<img src="https://www.arenacraft.it/img/vip-{{package.name[:20]}}-badge.png"><br>
+            								{{ package.name[:20] }}<br>
+                                            <span> 
+                                             {% if package.customPrice == false and package.price > 0.00 %}
+            									{% if package.discount.applied %}
+            									<span class="discount strikethrough">{{ package.discount.original|money }}</span>
+        				                  	<span class="price-discounted">	<b>{{ package.price|money }} {{ basket.currency }}</b></span>
+            				                    {% else %}
+            				                    {{ package.price|money }} <small>{{ basket.currency }}</small>
+            				                  	{% endif %}
+            									 
+            								 {% endif %}
+            								</span>
+            								{% if package.basket %}
+            		                  					<a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-sm btn-rank btn-block">{{ __("Rimuovi") }}</a>
+            		                  				{% else %}
+            											<a href="javascript::void(0);" data-remote="/package/{{ package.id }}" class="btn btn-sm btn-rank btn-block toggle-modal">{{ __("Aggiungi") }}</a>
+            										{% endif %}
+            								</th>
+                                         {% endfor %}
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="rank-section"><td>Dettagli Generali</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Targhetta</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><span id="1-rank-chat" style="color: rgb(170, 170, 170); font-weight: bold;">[Iron]</span></td>
+                                            <td class="tabco"><span id="1-rank-chat" style="color: rgb(243, 181, 0); font-weight: bold;">[Gold]</span></td>
+                                            <td class="tabco" ><span id="1-rank-chat" style="color: rgb(5, 202, 237); font-weight: bold;">[Diamond]</span></td>
+                                            <td class="tabco"><span id="1-rank-chat" style="color: rgb(3, 199, 0); font-weight: bold;">[Emerald]</span></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Comando /report</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Companion Esclusivo</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" >Farmer</td>
+                                            <td class="tabco" >Miner</td>
+                                            <td class="tabco">Wizard</td>
+                                            <td class="tabco">Knight</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Livello Apertura Crates</td>
+                                            <td class="tabco" >★★★☆☆</td>
+                                            <td class="tabco" >★★★★☆</td>
+                                            <td class="tabco" >★★★★☆</td>
+                                            <td class="tabco">★★★★★</td>
+                                            <td class="tabco">★★★★★</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Crates Instantanee</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><b>2</b> (4★)</td>
+                                            <td class="tabco" ><b>3</b> (4★)</td>
+                                            <td class="tabco"><b>2</b> (5★)</td>
+                                            <td class="tabco"><b>3</b> (5★)</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Dust Istantanea</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" >500</td>
+                                            <td class="tabco" >700</td>
+                                            <td class="tabco">1000</td>
+                                            <td class="tabco">2000</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Crates Mensili</td>
+                                            <td class="tabco" >1</td>
+                                            <td class="tabco" >3</td>
+                                            <td class="tabco" >5</td>
+                                            <td class="tabco">7</td>
+                                            <td class="tabco">10</td>
+                                            </tr>
+                                             <tr class="rank-section"><td>TeamSpeak 3</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Rank VIP</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1">Accesso Stanze VIP</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Icona Personalizzata</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Stanza permanente</td>
+                                            <td class="tabco" >1</td>
+                                            <td class="tabco" >1</td>
+                                            <td class="tabco" >2</td>
+                                            <td class="tabco">2</td>
+                                            <td class="tabco">3</td>
+                                            </tr>
+                                            <tr class="rank-section"><td>Forum</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Post Colorato</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Badge Anzianità</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Chiusura propri Topic</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr class="rank-section"><td>BedWars</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster voto Mappe</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster Coins</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Joinare lobby Full</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Fly nella Lobby</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >GUI Acquisti Recenti</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Particelle Kill/Death</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Disguise</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr class="rank-section"><td>Survival Games</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster voto Mappe</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster Coins</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Joinare lobby Full</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Prefisso VIP sulla testa</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr class="rank-section"><td>MiniGames</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster /skip map</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster /skip minigame</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Booster Coins</td>
+                                            <td class="tabco" >0x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco" >2x</td>
+                                            <td class="tabco">3x</td>
+                                            <td class="tabco">4x</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Joinare lobby Full</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Prefisso VIP sulla testa</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Scelta del Team anticipata</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr class="rank-section"><td>Lotti</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Lotti aggiuntivi</td>
+                                            <td class="tabco" >0</td>
+                                            <td class="tabco" >0</td>
+                                            <td class="tabco" >1</td>
+                                            <td class="tabco">2</td>
+                                            <td class="tabco">3</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Lotti più grandi</td>
+                                            <td class="tabco" >0</td>
+                                            <td class="tabco" >1</td>
+                                            <td class="tabco" >2</td>
+                                            <td class="tabco">3</td>
+                                            <td class="tabco">4</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Teste dei Giocatori</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Editing Armorstand</td>
+                                            <td class="tabco" >BASE</td>
+                                            <td class="tabco" >BASE</td>
+                                            <td class="tabco" >BASE</td>
+                                            <td class="tabco">AVANZATO</td>
+                                            <td class="tabco">AVANZATO</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Editing Banners</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Comando /p time</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Comando /p music</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Disguise in Mob</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            <tr class="rank-section"><td>Skyblock</td><td></td><td></td><td></td><td></td><td></td></tr>
+                                            <tr>
+                                            <td class="tabco1" >Player nell'Isola</td>
+                                            <td class="tabco" >4</td>
+                                            <td class="tabco" >6</td>
+                                            <td class="tabco" >8</td>
+                                            <td class="tabco">10</td>
+                                            <td class="tabco">12</td>
+                                            </tr>
+                                            <tr>
+                                            <td class="tabco1" >Particelle</td>
+                                            <td class="tabco" ><i class="fa fa-times crossSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco" ><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            <td class="tabco"><i class="fa fa-check rightSign" aria-hidden="true"></i></td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                                  </div><!--row-->
+                                                  </div><!--itembox-->
+                                                </div><!--container-->
+                                            </div><!--PricingTab-->
+                                    
+    						   
+    						{% else %}
+    						<div class="row">
+    						<div class="panel panel-default module col-md-4 col-xs-12" id="panel-description">
+                                <div class="panel-heading">{{category.name}}</div>
+                                <div class="panel-body">
+                                      {{ category.description|raw }}
+                                </div>
+                            </div>
+    						<div class="itembox pack-content col-md-7 col-md-offset-1 col-xs-12 col-xs-offset-0">
+    						    <div class="pack-img col-md-12">
+    						        <div class="row">
+        							{% for package in category.packages %}
+        							    <div class="pack col-md-3 col-sm-6 col-xs-12">
+        							        <div class="pack-text">
+        							            {% if package.discount.applied %}
+        							            	<div class="box-discounted">
+                                                      <h3>IN SCONTO</h2>
+                                            		</div>
+                                            	{% endif %}
+                                                <div class="pack-name">{{ package.name[:24] }}
+                                                   {% if package.countdownEnds %}<br /><span class="text-danger"><i class="fa fa-clock-o"></i> <span class="countdown-to" data-countdown="{{ package.countdownEnds }}">{{ __("Finirà presto!") }}</span></span>{% endif %}
+                                                </div>
+                                                <div class="pack-price">
+                                                    {% if package.customPrice == false and package.price > 0.00 %}
+        												{% if package.discount.applied %}
+        				                  					<span class="discount strikethrough">{{ package.discount.original|money }}</span>
+        				                  					<span class="price-discounted"> {{ package.price|money }} {{ basket.currency }}</span>
+        				                  				{% else %}
+        				                  					{{ package.price|money }} <small>{{ basket.currency }}</small>
+        				                  				{% endif %}
+        				                  				
+        											
+        											{% endif %}
+        										</div>
+                                            <div class="pack-img-content">
+                                                <a href="javascript:void(0);" data-remote="/package/{{ package.id }}" class="toggle-modal">
+                                                    <img src="{{ package.image.url }}" class="toggle-tooltip {% if package.image.borderless %}img-rounded{% else %}img-thumbnail{% endif %}" title="{{ __("Clicca per maggiori dettagli") }}" />
+                                                </a>
+                                            </div>
+                                            <div class="row">
+                                            <div class="pack-info">
+                                                
+                                              </div>
+                                              </div>
+                                              <div class="pack-button col-md-12 col-xs-12 col-xs-offset-0">
+                                                {% if package.basket %}
+        		                  					<a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-sm btn-orange btn-block">{{ __("Rimuovi") }}</a>
+        		                  				{% else %}
+        											<a href="javascript::void(0);" data-remote="/package/{{ package.id }}" class="btn btn-sm btn-blue btn-block toggle-modal">{{ __("Aggiungi") }}</a>
+        										{% endif %}
+                                              </div>
+                                            </div>
+                                        </div>
+        							{% endfor %}
+        							</div>
+        						</div>
+        					 </div>
+    						{% endif %}
+    					</div>
+					{% else %}
+						{{ __("Nessun pacchetto da mostrare.") }}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("[rel='tooltip']").tooltip();
+    });
+</script>
+{% endblock %}

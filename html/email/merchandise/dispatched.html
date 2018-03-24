@@ -1,0 +1,38 @@
+{% extends "email/layout.html" %}
+
+{% block content %}
+<table>
+    <tr>
+        <td class="content-block">
+            Ciao,
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            Ti volevamo informare che il tuo ordine è stato processato.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            <strong>Riferimento:</strong> {{ order.supplier_order_ref }}<br />
+            <strong>Descrizione: </strong> {{ order.description }}<br />
+            <br />
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+           Potrebbe essere neccesaria un'attesa più o meno lunga affinché i benefici possano essere applicati.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+           Ti ringraziamo per l'acquisto e ti invitiamo a contattarci qualora dovessi avere bisogno di aiuto.
+        </td>
+    </tr>
+    <tr>
+        <td class="content-block">
+            &mdash; {{ accountData.name }}
+        </td>
+    </tr>
+</table>
+{% endblock %}

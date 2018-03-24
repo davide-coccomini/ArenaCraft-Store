@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+        <div class="body row row-fluid">
+                <div class="content span8 col-md-8">
+                        <div class="panel panel-default box-container">
+                                <div class="panel-heading header">{{ __("Status ordine") }}</div>
+                                <div class="panel-body content">
+                                        <p>
+                                                {{ __("Per consultare i pagamenti devi fornire le seguenti informazioni.") }}
+                                        </p>
+					<form action='?' method='post'>
+						<table class="table table-responsive">
+							<tr class="form-group">
+								<td><label>{{ __("Username") }}</label></td>
+								<td><input type="text" class="form-control" name="ign" value="{{ params.ign }}" /></td>
+							</tr>
+							<tr class="form-group">
+								<td><label>{{ __("ID Transazione") }}</label></td>
+								<td><input type="text" class="form-control" name="txn" value="{{ params.txn }}" /></td>
+							</tr>
+							<tr class="form-group">
+								<td><label>{{ __("Indirizzo email") }}</label></td>
+								<td><input type="text" class="form-control" name="email" value="{{ params.email }}" /></td>
+							</tr>
+							<tr class="form-group">
+								<td><label>{{ __("Costo") }}</label></td>
+								<td><input type="text" class="form-control" name="costo" value="{{ params.amount }}" /></td>
+							</tr>
+						</table>
+						<button type="submit" class="btn btn-orange">{{ __("Ricerca pagamenti") }}</button>
+					</form>
+
+					<hr />
+					{% if params %}
+						{% if payments|length > 0 %}
+						    <p>{{ _p("Ci sono :payment_count pagamenti",  payments|length, {"payment_count": payments|length}) }}</p>
+							{% for payment in payments %}
+				                                <table class="table table-hover table-striped well border">
+				                                    <thead>
+                                				        <tr>
+				                                            <td class="name" colspan="2"><strong>{{ payment.order_date|date("Y-m-d") }} - {{ payment.payment_status }}</strong></td>
+                                				        </tr>
+				                                    </thead>
+							                      <tbody>
+                                				        <tr>
+				                                            <td>{{ __("Prezzo ordine:") }}</td>
+				                                            <td>{{ payment.currency }}{{ payment.price|number_format(2, ".", ",") }}</td>
+				                                        </tr>
+				                                        <tr>
+				                                            <td>{{ __("Comandi eseguiti:") }}</td>
+				                                            <td>{{ payment.commands_executed }}</td>
+				                                        </tr>                               
+				                                        <tr>
+				                                            <td>{{ __("Comandi dovuti:") }}</td>
+				                                            <td>{{ payment.commands_due }}</td>
+				                                        </tr>                                                                           
+				                                        <tr>
+				                                            <td>{{ __("Comandi schedulati:") }}</td>
+				                                            <td>{{ payment.commands_scheduled }}</td>
+				                                        </tr>                                            
+				                                    </tbody>
+							        </table>							
+							{% endfor %}
+						{% else %}
+							<p>{{ __("Non ci sono pagamenti che corrispondono a questi dettagli") }}</p>
+						{% endif %}
+					{% endif %}
+                                </div>
+                        </div>
+                </div>
+                <div class="sidebar span4 col-md-4">
+                        {{ modules|raw }}
+                </div>
+        </div>
+{% endblock %}
+

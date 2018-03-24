@@ -1,0 +1,77 @@
+{% if checkout.requiredFields|length > 0 %}
+<div class="page-header">
+   <h4>Dettagli acquisto</h4>
+</div>
+<div class="details">
+   <div class="row">
+      {% if "req_full_name" in checkout.requiredFields %}
+      <div class="name">
+         <div class="form-group">
+            <label>Nome completo:</label>
+            <input type="input" class="form-control" name="address_name" />
+         </div>
+      </div>
+      {% endif %}
+      {% if "req_email" in checkout.requiredFields %}
+      <div class="email">
+         <div class="form-group">
+            <label>Indirizzo email:</label>
+            <input type="input" class="form-control" name="email" />
+         </div>
+      </div>
+      {% endif %}
+   </div>
+   {% if "req_address" in checkout.requiredFields or "req_country_and_state" in checkout.requiredFields %}
+   <div class="row">
+      {% if "req_address" in checkout.requiredFields %}
+      <div class="address1">
+         <div class="form-group">
+            <label>Indirizzo 1:</label>
+            <input type="input" class="form-control" name="address_line_1" />
+         </div>
+      </div>
+      <div class="address2">
+         <div class="form-group">
+            <label>Indirizzo 2:</label>
+            <input type="input" class="form-control" name="address_line_2" />
+         </div>
+      </div>
+      <div class="city">
+         <div class="form-group">
+            <label>Città:</label>
+            <input type="input" class="form-control" name="address_city" />
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="zip">
+         <div class="form-group">
+            <label>Codice postale:</label>
+            <input type="input" class="form-control" name="address_zip" />
+         </div>
+      </div>
+      {% endif %}
+      {% if "req_address" in checkout.requiredFields or "req_country_and_state" in checkout.requiredFields %}
+      <div class="country">
+         <div class="form-group">
+            <label>Country:</label>
+            <select class="form-control" name="address_country">
+               <option value="">Seleziona un paese</option>
+               {% for country in checkout.countries %}
+               <option value="{{ country.id }}">{{ country.name }}</option>
+               {% endfor %}
+            </select>
+         </div>
+      </div>
+      <div class="state">
+         <div class="form-group">
+            <label>Stato/Regione:</label>
+            <input type="input" class="form-control" name="address_state" />
+         </div>
+      </div>
+   </div>
+   {% endif %}
+</div>
+{% endif %}
+{% endif %}
+

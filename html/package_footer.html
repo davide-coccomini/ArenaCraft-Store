@@ -1,0 +1,47 @@
+
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-sm-4">
+            <p class="pull-left">
+                {% if package.customPrice %}
+                    <b>{{ __("You decide how much to pay.") }}</b>
+                {% elseif package.price == 0.00 %}
+                    <b>{{ __("This item is free.") }}</b>
+                {% else %}
+                    <b>{{ package.price|money }} <small>{{ basket.currency }}</small></b>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-sm-8">
+            <div {% if package.purchasable == false %}data-toggle="tooltip" title="{{ __("Questo item non può essere acquistato.") }}"{% endif %} style="display: inline-block;">
+                {% if package.basket %}
+                    <a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-danger gift-weight">{{ __("Rimuovi") }}</a>
+                {% else %}
+                    {% if package.type != "single" %}
+                        <a href="/checkout/packages/add/{{ package.id }}/subscribe" class="btn btn-success gift-weight" {% if package.purchasable == false %}disabled{% endif %}>{{ __("Salva") }}</a>
+                    {% endif %}
+{% if package.type != "subscription" %}
+                        <a href="/checkout/packages/add/{{ package.id }}/single" class="btn btn-orange gift-weight" {% if package.purchasable == false %}disabled{% endif %}>{{ __("Aggiungi al carrello") }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if package.disable_gifting == false and package.storeGiftingEnabled %}
+                <input type="button" class="btn gift-weight btn-gift" style="font-size:13px;" id="btn-gift" value="{{ __("Regala questo pacchetto") }}">
+            {% endif %}
+        </div>
+    </div>
+    {% if package.disable_gifting == false and package.storeGiftingEnabled %}
+    <div class="row gift-fields">
+        <form name="gift-form" method="get" action="/checkout/packages/add/{{ package.id }}/single/gift">
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="{{ __("Inserisci l'username della persona a cui vuoi regalare questo pacchetto") }}" class="form-control"/>
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Regala</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>

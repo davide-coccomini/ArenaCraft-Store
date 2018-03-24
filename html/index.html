@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="news-box fade in col-md-8 col-md-offset-2 col-xs-offset-0 col-xs-12">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>13/03/18:</strong> ArenaCraft shop è stato creato appositamente per garantire una navigazione chiara a tutti coloro che vogliono contribuire economicamente al mantenimento del progetto. Per questa occasione, tutti i prodotti saranno scontati per un breve periodo, vi suggeriamo di approfittarne!<br> 
+    Qualora doveste riscontrare problemi o voleste semplicemente far presenti dei suggerimenti, vi invitiamo a contattarci.
+  </div>
+<div class="row">
+	<div class="">
+		<div class="content col-md-5 col-md-offset-2 col-xs-12 col-sm-12 col-xs-offset-0 col-sm-offset-0">
+			<div class="panel panel-default">
+				<div class="panel-heading">{{ __("Benvenuto") }}</div>
+				<div class="panel-body">
+					<p>
+				  		{{ index.description|raw }}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="sidebar col-md-3 col-sm-12 col-xs-12">
+			{{ modules|raw }}
+		</div>
+	</div>
+ </div>
+{% endblock %}
