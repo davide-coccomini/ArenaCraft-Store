@@ -287,6 +287,8 @@ header p
 {
     text-align:center;
     font-size:21px;
+    font-weight:bolder;
+    color:white;
 }
 
 header .btn-link
@@ -342,12 +344,6 @@ header .btn-link
     padding:20px;
     margin-bottom:5px;
     border-radius:0px;
-}
-
-#header-container
-{
-    background-color:rgba(255, 255, 255, 0.9);
-    height:100vh; 
 }
 /*END PRESENTATION*/
 /*HEADER*/
@@ -647,8 +643,8 @@ License Terms
 /*RANKS*/
 
 #PricingTab {
-	background-size: 100% 100%;
-	background-attachment: fixed;
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 #PricingTab h2{
     font-family: 'Roboto', sans-serif;
@@ -660,7 +656,7 @@ License Terms
 }
 #PricingTab table{
     background:white;
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 .itembox {
@@ -675,14 +671,14 @@ License Terms
 }
 
 .itembox-auto {
-	width:83.33333333% !important ;
-	margin: 0 auto;
+    width:83.33333333% !important ;
+    margin: 0 auto;
 }
 
 
 thead {
     /*background-color: rgba(18, 82, 128, 1);*/
-	color:black;
+    color:black;
 }
 
 th
@@ -690,10 +686,10 @@ th
     min-width:100px;
 }
 th.tabco1 {
-	padding: 32px 10px !important;
-	font-size: 24px;
-	text-transform: uppercase;
-	text-align:center;
+    padding: 32px 10px !important;
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align:center;
 }
 .tabco1 p
 {
@@ -712,9 +708,9 @@ th.tabco1 {
     padding: 20px;
 }
 th.tabco2 {
-	padding: 20px 5px !important;
-	font-size: 18px;
-	text-transform: uppercase;
+    padding: 20px 5px !important;
+    font-size: 18px;
+    text-transform: uppercase;
     text-align:center;
     
 }
@@ -750,20 +746,20 @@ th.tabco2>img {
     background:#F15C00;
 }
 .rightSign {
-	color: #1ab921;
-	background: #fff;
-	border-radius: 45px;
-	padding: 2px;
-	border: 2px solid;
-	box-shadow: 0px 0px 11px -5px #000;
+    color: #1ab921;
+    background: #fff;
+    border-radius: 45px;
+    padding: 2px;
+    border: 2px solid;
+    box-shadow: 0px 0px 11px -5px #000;
 }
 .crossSign {
-	color: #de2315;
-	background: #fff;
-	border-radius: 45px;
-	padding: 1px 3px;
-	border: 2px solid;
-	box-shadow: 0px 0px 11px -5px #000;
+    color: #de2315;
+    background: #fff;
+    border-radius: 45px;
+    padding: 1px 3px;
+    border: 2px solid;
+    box-shadow: 0px 0px 11px -5px #000;
 }
 .more-information
 {
@@ -937,8 +933,8 @@ th.tabco2>img {
     margin:0 auto;
     border: 1px solid rgba(200, 200, 200, 0);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
-	background:  #B2EBF2;
-	font-size:15px;
+    background:  #B2EBF2;
+    font-size:15px;
     border-radius: 1px;
     padding-top:10px;
  }
@@ -959,7 +955,7 @@ th.tabco2>img {
     margin:20px auto;
      border: 1px solid rgb(200, 200, 200);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
-	background:  #125280;
+    background:  #125280;
     border-radius: 6px;
 }
 
@@ -1161,19 +1157,19 @@ th.tabco2>img {
 
 .footer {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-	background: #ECECEC;
-	border-top: 5px solid #E6E6E6;
-	color: #626262;
-	width: 100%;
-	padding-top: 14px;
-	font-size: 1.3rem;
-	height: 3.85em;
-	margin: 0;
+    background: #ECECEC;
+    border-top: 5px solid #E6E6E6;
+    color: #626262;
+    width: 100%;
+    padding-top: 14px;
+    font-size: 1.3rem;
+    height: 3.85em;
+    margin: 0;
     margin-top: 15px;
 }
 
 .footer .right {
-	text-align: right;
+    text-align: right;
 }
 
 .footer a {
