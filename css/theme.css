@@ -327,12 +327,17 @@ header .btn-link
     border:none;
     float:left;
     width:100%;
-    border-radius:0px;
+    border-radius:0 13px 13px 0;
     margin:0px;
 }
 #btn-header:hover
 {
-    background:#ffb329;
+    background:#ff960f;
+      -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    transition: all .3s ease;
 }
 #text-header
 {
